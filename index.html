@@ -1,14 +1,22 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Redirecting...</title>
-</head>
-<body>
-  <script>
-    window.location.href = 'com.example.fullauth://oauth' 
-      + window.location.search 
-      + window.location.hash;
-  </script>
-  <p>Redirecting back to app...</p>
-</body>
-</html>
+ <!DOCTYPE html>
+     <html>
+     <head>
+         <title>Redirecting...</title>
+     </head>
+     <body>
+         <script>
+             // Get the parameters LinkedIn sent (code, state)
+             const urlParams = new URLSearchParams(window.location.search);
+            const code = urlParams.get('code');
+            const state = urlParams.get('state');
+   
+            if (code) {
+                // Redirect the browser to your app's custom scheme
+                // This will trigger the OS to open your Flutter app
+                window.location.href = `com.example.fullauth://oauthredirect?code=${code}&state=${state}`;
+            } else {
+                document.body.innerHTML = "Authentication failed or cancelled.";
+            }
+        </script>
+    </body>
+    </html>
